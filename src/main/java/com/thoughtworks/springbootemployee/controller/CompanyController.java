@@ -29,7 +29,16 @@ public class CompanyController {
         }
         return null;
     }
-    
+    @GetMapping("/{id}/employees")
+    public List<Employee> getEmployees(@PathVariable int id){
+        List<Company> companies = createNewCompany();
+        for(int i = 0; i < companies.size(); i++){
+            if(companies.get(i).getId() == id){
+                return companies.get(i).getEmployees();
+            }
+        }
+        return null;
+    }
 
     private List<Company> createNewCompany() {
         List<Company> companies = new ArrayList<>();
