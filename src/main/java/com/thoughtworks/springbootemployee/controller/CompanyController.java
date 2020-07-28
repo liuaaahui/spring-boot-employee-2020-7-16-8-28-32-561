@@ -39,6 +39,17 @@ public class CompanyController {
         }
         return null;
     }
+    @GetMapping("/companies")
+    public List<Company> getCompaniesByPage(@PathVariable int page,@PathVariable int pageSize){
+        List<Company> companies = createNewCompany();
+        int beginIndex = (page-1)*pageSize;
+        int endIndex = page*pageSize-1;
+        List<Company> displayCompanies = new ArrayList<>();
+        for (;beginIndex<=endIndex&&beginIndex<companies.size();beginIndex++){
+            displayCompanies.add(companies.get(beginIndex));
+        }
+        return displayCompanies;
+    }
 
     private List<Company> createNewCompany() {
         List<Company> companies = new ArrayList<>();
