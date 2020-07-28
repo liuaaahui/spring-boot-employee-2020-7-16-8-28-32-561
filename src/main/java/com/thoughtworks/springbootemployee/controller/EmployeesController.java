@@ -26,14 +26,26 @@ public class EmployeesController {
         return null;
     }
 
+//    @GetMapping
+//    public List<Employee> getEmployeesByPage(@RequestParam int page, @RequestParam int pageSize){
+//        List<Employee> employees = createNewEmployees();
+//        int beginIndex = (page-1)*pageSize;
+//        int endIndex = page*pageSize-1;
+//        List<Employee> displayEmployees = new ArrayList<>();
+//        for (;beginIndex<=endIndex&&beginIndex<employees.size();beginIndex++){
+//            displayEmployees.add(employees.get(beginIndex));
+//        }
+//        return displayEmployees;
+//    }
+
     @GetMapping
-    public List<Employee> getEmployeesByPage(@RequestParam int page, @RequestParam int pageSize){
+    public List<Employee> getEmployeesByGender(@RequestParam String gender){
         List<Employee> employees = createNewEmployees();
-        int beginIndex = (page-1)*pageSize;
-        int endIndex = page*pageSize-1;
         List<Employee> displayEmployees = new ArrayList<>();
-        for (;beginIndex<=endIndex&&beginIndex<employees.size();beginIndex++){
-            displayEmployees.add(employees.get(beginIndex));
+        for (int index = 0;index<employees.size();index++){
+            if(employees.get(index).getGender().equals(gender)){
+                displayEmployees.add(employees.get(index));
+            }
         }
         return displayEmployees;
     }
