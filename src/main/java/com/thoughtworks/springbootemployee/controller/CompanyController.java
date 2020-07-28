@@ -20,9 +20,9 @@ public class CompanyController {
     @GetMapping("/{id}")
     public Company getCompany(@PathVariable int id) {
         List<Company> companies = createNewCompany();
-        for (int i = 0; i < companies.size(); i++) {
-            if (companies.get(i).getId() == id) {
-                return companies.get(i);
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                return company;
             }
         }
         return null;
@@ -31,9 +31,9 @@ public class CompanyController {
     @GetMapping("/{id}/employees")
     public List<Employee> getEmployees(@PathVariable int id) {
         List<Company> companies = createNewCompany();
-        for (int i = 0; i < companies.size(); i++) {
-            if (companies.get(i).getId() == id) {
-                return companies.get(i).getEmployees();
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                return company.getEmployees();
             }
         }
         return null;
@@ -58,14 +58,14 @@ public class CompanyController {
     }
 
     @PutMapping("/{id}")
-    public Company updateCompany(@PathVariable int id, @RequestBody Company company) {
+    public Company updateCompany(@PathVariable int id, @RequestBody Company updateCompany) {
         List<Company> companies = createNewCompany();
-        for (int index = 0; index < companies.size(); index++) {
-            if (companies.get(index).getId() == id) {
-                companies.get(index).setCompanyName(company.getCompanyName());
-                companies.get(index).setEmployees(company.getEmployees());
-                companies.get(index).setEmployeesNumber(company.getEmployeesNumber());
-                return companies.get(index);
+        for (Company company : companies) {
+            if (company.getId() == id) {
+                company.setCompanyName(updateCompany.getCompanyName());
+                company.setEmployees(updateCompany.getEmployees());
+                company.setEmployeesNumber(updateCompany.getEmployeesNumber());
+                return company;
             }
         }
         return null;

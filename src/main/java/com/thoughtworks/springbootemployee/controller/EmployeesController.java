@@ -17,9 +17,9 @@ public class EmployeesController {
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable int id) {
         List<Employee> employees = createNewEmployees();
-        for (int index = 0; index < employees.size(); index++) {
-            if (employees.get(index).getId() == id) {
-                return employees.get(index);
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                return employee;
             }
         }
         return null;
@@ -41,9 +41,9 @@ public class EmployeesController {
     public List<Employee> getEmployeesByGender(@RequestParam String gender) {
         List<Employee> employees = createNewEmployees();
         List<Employee> displayEmployees = new ArrayList<>();
-        for (int index = 0; index < employees.size(); index++) {
-            if (employees.get(index).getGender().equals(gender)) {
-                displayEmployees.add(employees.get(index));
+        for (Employee employee : employees) {
+            if (employee.getGender().equals(gender)) {
+                displayEmployees.add(employee);
             }
         }
         return displayEmployees;
@@ -55,15 +55,15 @@ public class EmployeesController {
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployeeById(@PathVariable int id, @RequestBody Employee employee) {
+    public Employee updateEmployeeById(@PathVariable int id, @RequestBody Employee updateEmployee) {
         List<Employee> employees = createNewEmployees();
-        for (int index = 0; index < employees.size(); index++) {
-            if (employees.get(index).getId() == id) {
-                employees.get(index).setGender(employee.getGender());
-                employees.get(index).setAge(employee.getAge());
-                employees.get(index).setName(employee.getName());
-                employees.get(index).setSalary(employee.getSalary());
-                return employees.get(index);
+        for (Employee employee : employees) {
+            if (employee.getId() == id) {
+                employee.setGender(updateEmployee.getGender());
+                employee.setAge(updateEmployee.getAge());
+                employee.setName(updateEmployee.getName());
+                employee.setSalary(updateEmployee.getSalary());
+                return employee;
             }
         }
         return null;
