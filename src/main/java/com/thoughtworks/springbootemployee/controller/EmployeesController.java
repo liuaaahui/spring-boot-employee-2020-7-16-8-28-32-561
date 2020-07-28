@@ -15,10 +15,10 @@ public class EmployeesController {
 //    }
 
     @GetMapping("/{id}")
-    public Employee getEmployeeById(@PathVariable int id){
+    public Employee getEmployeeById(@PathVariable int id) {
         List<Employee> employees = createNewEmployees();
-        for (int index = 0;index<employees.size();index++){
-            if(employees.get(index).getId()==id){
+        for (int index = 0; index < employees.size(); index++) {
+            if (employees.get(index).getId() == id) {
                 return employees.get(index);
             }
         }
@@ -38,11 +38,11 @@ public class EmployeesController {
 //    }
 
     @GetMapping
-    public List<Employee> getEmployeesByGender(@RequestParam String gender){
+    public List<Employee> getEmployeesByGender(@RequestParam String gender) {
         List<Employee> employees = createNewEmployees();
         List<Employee> displayEmployees = new ArrayList<>();
-        for (int index = 0;index<employees.size();index++){
-            if(employees.get(index).getGender().equals(gender)){
+        for (int index = 0; index < employees.size(); index++) {
+            if (employees.get(index).getGender().equals(gender)) {
                 displayEmployees.add(employees.get(index));
             }
         }
@@ -50,15 +50,15 @@ public class EmployeesController {
     }
 
     @PostMapping
-    public Employee addEmployee(@RequestBody Employee employee){
-        return new Employee(employee.getId(),employee.getName(),employee.getAge(),employee.getGender(),employee.getSalary());
+    public Employee addEmployee(@RequestBody Employee employee) {
+        return new Employee(employee.getId(), employee.getName(), employee.getAge(), employee.getGender(), employee.getSalary());
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployeeById(@PathVariable int id,@RequestBody Employee employee){
+    public Employee updateEmployeeById(@PathVariable int id, @RequestBody Employee employee) {
         List<Employee> employees = createNewEmployees();
-        for (int index=0;index<employees.size();index++){
-            if(employees.get(index).getId()==id){
+        for (int index = 0; index < employees.size(); index++) {
+            if (employees.get(index).getId() == id) {
                 employees.get(index).setGender(employee.getGender());
                 employees.get(index).setAge(employee.getAge());
                 employees.get(index).setName(employee.getName());
@@ -70,10 +70,10 @@ public class EmployeesController {
     }
 
     @DeleteMapping("/{id}")
-    public Employee deleteEmployeeById(@PathVariable int id){
+    public Employee deleteEmployeeById(@PathVariable int id) {
         List<Employee> employees = createNewEmployees();
-        for (int index=0;index<employees.size();index++){
-            if(employees.get(index).getId()==id){
+        for (int index = 0; index < employees.size(); index++) {
+            if (employees.get(index).getId() == id) {
                 return employees.remove(index);
             }
         }
@@ -82,12 +82,12 @@ public class EmployeesController {
 
     private List<Employee> createNewEmployees() {
         List<Employee> employees = new ArrayList<>();
-        employees.add(new Employee(4,"alibaba1",20,"male",6000));
-        employees.add(new Employee(11,"tengxun2",19,"female",7000));
-        employees.add(new Employee(6,"alibaba3",19,"male",8000));
-        employees.add(new Employee(13,"alibaba4",20,"female",9000));
-        employees.add(new Employee(15,"alibaba5",19,"male",5000));
-        employees.add(new Employee(17,"alibaba6",20,"female",4000));
+        employees.add(new Employee(4, "alibaba1", 20, "male", 6000));
+        employees.add(new Employee(11, "tengxun2", 19, "female", 7000));
+        employees.add(new Employee(6, "alibaba3", 19, "male", 8000));
+        employees.add(new Employee(13, "alibaba4", 20, "female", 9000));
+        employees.add(new Employee(15, "alibaba5", 19, "male", 5000));
+        employees.add(new Employee(17, "alibaba6", 20, "female", 4000));
         return employees;
     }
 }
