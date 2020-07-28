@@ -1,6 +1,5 @@
 package com.thoughtworks.springbootemployee.controller;
 
-import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,6 +64,17 @@ public class EmployeesController {
                 employees.get(index).setName(employee.getName());
                 employees.get(index).setSalary(employee.getSalary());
                 return employees.get(index);
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("/{id}")
+    public Employee deleteEmployeeById(@PathVariable int id){
+        List<Employee> employees = createNewEmployees();
+        for (int index=0;index<employees.size();index++){
+            if(employees.get(index).getId()==id){
+                return employees.remove(index);
             }
         }
         return null;
