@@ -65,6 +65,16 @@ public class CompanyController {
         }
         return null;
     }
+    @DeleteMapping("/{id}")
+    public Company deleteCompanyById(@PathVariable int id){
+        List<Company> companies = createNewCompany();
+        for (int index=0;index<companies.size();index++){
+            if(companies.get(index).getId()==id){
+                return companies.remove(index);
+            }
+        }
+        return null;
+    }
     private List<Company> createNewCompany() {
         List<Company> companies = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
