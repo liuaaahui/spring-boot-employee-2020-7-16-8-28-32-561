@@ -52,6 +52,19 @@ public class CompanyController {
     public Company addCompany(@RequestBody Company company){
         return new Company(company.getId(),company.getCompanyName(),company.getEmployeesNumber(),company.getEmployees());
     }
+    @PutMapping("/{id}")
+    public Company updateCompany(@PathVariable int id,@RequestBody Company company){
+        List<Company> companies = createNewCompany();
+        for (int index=0;index<companies.size();index++){
+            if(companies.get(index).getId()==id){
+                companies.get(index).setCompanyName(company.getCompanyName());
+                companies.get(index).setEmployees(company.getEmployees());
+                companies.get(index).setEmployeesNumber(company.getEmployeesNumber());
+                return companies.get(index);
+            }
+        }
+        return null;
+    }
     private List<Company> createNewCompany() {
         List<Company> companies = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
