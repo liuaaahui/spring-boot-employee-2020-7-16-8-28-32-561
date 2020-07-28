@@ -2,10 +2,7 @@ package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +10,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-    @GetMapping
-    public List<Company> getAllCompany(){
-        List<Company> companies =createNewCompany();
-
-        return companies;
-    }
+//    @GetMapping
+//    public List<Company> getAllCompany(){
+//        List<Company> companies =createNewCompany();
+//
+//        return companies;
+//    }
     @GetMapping("/{id}")
     public Company getCompany(@PathVariable int id){
         List<Company> companies =createNewCompany();
@@ -39,8 +36,8 @@ public class CompanyController {
         }
         return null;
     }
-    @GetMapping("/companies")
-    public List<Company> getCompaniesByPage(@PathVariable int page,@PathVariable int pageSize){
+    @GetMapping
+    public List<Company> getCompaniesByPage(@RequestParam int page,@RequestParam int pageSize){
         List<Company> companies = createNewCompany();
         int beginIndex = (page-1)*pageSize;
         int endIndex = page*pageSize-1;
@@ -48,9 +45,13 @@ public class CompanyController {
         for (;beginIndex<=endIndex&&beginIndex<companies.size();beginIndex++){
             displayCompanies.add(companies.get(beginIndex));
         }
+        System.out.println(displayCompanies);
         return displayCompanies;
     }
-
+    @PostMapping
+    public Company addCompany(@RequestBody Company company){
+        return new Company(company.getId(),company.getCompanyName(),company.getEmployeesNumber(),company.getEmployees());
+    }
     private List<Company> createNewCompany() {
         List<Company> companies = new ArrayList<>();
         List<Employee> employees = new ArrayList<>();
