@@ -50,6 +50,11 @@ public class EmployeesController {
         return displayEmployees;
     }
 
+    @PostMapping
+    public Employee addEmployee(@RequestBody Employee employee){
+        return new Employee(employee.getId(),employee.getName(),employee.getAge(),employee.getGender(),employee.getSalary());
+    }
+
     private List<Employee> createNewEmployees() {
         List<Employee> employees = new ArrayList<>();
         employees.add(new Employee(4,"alibaba1",20,"male",6000));
