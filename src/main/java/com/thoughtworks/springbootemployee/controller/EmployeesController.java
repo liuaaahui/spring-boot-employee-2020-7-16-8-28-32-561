@@ -5,14 +5,29 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeesController {
-//    @GetMapping
-//    public List<Employee> getAllEmployees(){
-//        return createNewEmployees();
-//    }
+    List<Employee> employees = createNewEmployees();
+
+    @GetMapping
+    public List<Employee> getEmployees(@RequestParam(value = "page",required = false) Integer page, @RequestParam(value = "pageSize",required = false) Integer pageSize, @RequestParam(value = "gender",required = false) String gender){
+        if (page == null&&pageSize == null&&gender == null){
+            return employees;
+        }else{
+            if (gender == null)
+                return employees.stream().skip((page-1)*pageSize).limit(pageSize).collect(Collectors.toList());
+            List<Employee> displayEmployees = new ArrayList<>();
+            for (Employee employee : employees) {
+                if (employee.getGender().equals(gender)) {
+                    displayEmployees.add(employee);
+                }
+            }
+            return displayEmployees;
+        }
+    }
 
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable int id) {
@@ -23,30 +38,6 @@ public class EmployeesController {
             }
         }
         return null;
-    }
-
-//    @GetMapping
-//    public List<Employee> getEmployeesByPage(@RequestParam int page, @RequestParam int pageSize){
-//        List<Employee> employees = createNewEmployees();
-//        int beginIndex = (page-1)*pageSize;
-//        int endIndex = page*pageSize-1;
-//        List<Employee> displayEmployees = new ArrayList<>();
-//        for (;beginIndex<=endIndex&&beginIndex<employees.size();beginIndex++){
-//            displayEmployees.add(employees.get(beginIndex));
-//        }
-//        return displayEmployees;
-//    }
-
-    @GetMapping
-    public List<Employee> getEmployeesByGender(@RequestParam String gender) {
-        List<Employee> employees = createNewEmployees();
-        List<Employee> displayEmployees = new ArrayList<>();
-        for (Employee employee : employees) {
-            if (employee.getGender().equals(gender)) {
-                displayEmployees.add(employee);
-            }
-        }
-        return displayEmployees;
     }
 
     @PostMapping
