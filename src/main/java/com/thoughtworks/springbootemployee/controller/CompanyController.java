@@ -6,16 +6,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/companies")
 public class CompanyController {
-//    @GetMapping
-//    public List<Company> getAllCompany(){
-//        List<Company> companies =createNewCompany();
-//
-//        return companies;
-//    }
+    List<Company> companies =createNewCompany();
+
+    @GetMapping
+    public List<Company> getCompanies(@RequestParam(value = "page",required = false) Integer page, @RequestParam(value = "pageSize",required = false) Integer pageSize){
+        if (page == null || pageSize == null)
+            return companies;
+        return companies.stream().skip((page-1)*pageSize).limit(pageSize).collect(Collectors.toList());
+    }
 
     @GetMapping("/{id}")
     public Company getCompany(@PathVariable int id) {
@@ -37,19 +40,6 @@ public class CompanyController {
             }
         }
         return null;
-    }
-
-    @GetMapping
-    public List<Company> getCompaniesByPage(@RequestParam int page, @RequestParam int pageSize) {
-        List<Company> companies = createNewCompany();
-        int beginIndex = (page - 1) * pageSize;
-        int endIndex = page * pageSize - 1;
-        List<Company> displayCompanies = new ArrayList<>();
-        for (; beginIndex <= endIndex && beginIndex < companies.size(); beginIndex++) {
-            displayCompanies.add(companies.get(beginIndex));
-        }
-        System.out.println(displayCompanies);
-        return displayCompanies;
     }
 
     @PostMapping
