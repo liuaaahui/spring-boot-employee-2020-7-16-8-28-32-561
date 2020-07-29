@@ -23,7 +23,6 @@ public class CompanyController {
 
     @GetMapping("/{id}")
     public Company getCompany(@PathVariable int id) {
-        List<Company> companies = createNewCompany();
         for (Company company : companies) {
             if (company.getId() == id) {
                 return company;
@@ -34,7 +33,6 @@ public class CompanyController {
 
     @GetMapping("/{id}/employees")
     public List<Employee> getEmployees(@PathVariable int id) {
-        List<Company> companies = createNewCompany();
         for (Company company : companies) {
             if (company.getId() == id) {
                 return company.getEmployees();
@@ -51,7 +49,6 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     public Company updateCompany(@PathVariable int id, @RequestBody Company updateCompany) {
-        List<Company> companies = createNewCompany();
         for (Company company : companies) {
             if (company.getId() == id) {
                 company.setCompanyName(updateCompany.getCompanyName());
@@ -65,7 +62,6 @@ public class CompanyController {
 
     @DeleteMapping("/{id}")
     public Company deleteCompanyById(@PathVariable int id) {
-        List<Company> companies = createNewCompany();
         for (int index = 0; index < companies.size(); index++) {
             if (companies.get(index).getId() == id) {
                 return companies.remove(index);

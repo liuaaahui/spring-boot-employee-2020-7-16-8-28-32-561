@@ -32,7 +32,6 @@ public class EmployeesController {
 
     @GetMapping("/{id}")
     public Employee getEmployeeById(@PathVariable int id) {
-        List<Employee> employees = createNewEmployees();
         for (Employee employee : employees) {
             if (employee.getId() == id) {
                 return employee;
@@ -49,7 +48,6 @@ public class EmployeesController {
 
     @PutMapping("/{id}")
     public Employee updateEmployeeById(@PathVariable int id, @RequestBody Employee updateEmployee) {
-        List<Employee> employees = createNewEmployees();
         for (Employee employee : employees) {
             if (employee.getId() == id) {
                 employee.setGender(updateEmployee.getGender());
@@ -64,7 +62,6 @@ public class EmployeesController {
 
     @DeleteMapping("/{id}")
     public Employee deleteEmployeeById(@PathVariable int id) {
-        List<Employee> employees = createNewEmployees();
         for (int index = 0; index < employees.size(); index++) {
             if (employees.get(index).getId() == id) {
                 return employees.remove(index);
